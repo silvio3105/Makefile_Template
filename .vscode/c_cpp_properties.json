@@ -1,0 +1,25 @@
+{
+    "configurations": [
+        {
+            "name": "STM32F103xB",
+            "includePath": [
+                "${workspaceFolder}/**"
+            ],
+            "defines": [
+                "UNICODE",
+                "_UNICODE",
+                "USE_HAL_DRIVER",
+                "STM32F103xB"
+            ],
+            "cStandard": "c11",
+            "cppStandard": "c++11",
+            "intelliSenseMode": "gcc-arm",
+            "compilerPath": "${env:ARM-GCC}/arm-none-eabi-g++.exe",
+            "compilerArgs": [
+                "-mcpu=cortex-m3",
+                "-mthumb"
+            ]            
+        }
+    ],
+    "version": 4
+}

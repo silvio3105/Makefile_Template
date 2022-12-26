@@ -11,10 +11,10 @@
                 "USE_HAL_DRIVER",
                 "STM32F103xB"
             ],
-            "cStandard": "c11",
-            "cppStandard": "c++11",
+            "cStandard": "c17",
+            "cppStandard": "c++17",
             "intelliSenseMode": "gcc-arm",
-            "compilerPath": "${env:ARM-GCC}/arm-none-eabi-g++.exe",
+            "compilerPath": "${env:ARM-GCC}/arm-none-eabi-gcc.exe",
             "compilerArgs": [
                 "-mcpu=cortex-m3",
                 "-mthumb"

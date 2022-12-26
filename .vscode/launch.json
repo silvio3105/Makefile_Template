@@ -14,7 +14,7 @@
 			"servertype": "jlink",
 			"device": "STM32F103CB",
 			"interface": "swd",
-			"runToMain": true,
+			"runToEntryPoint": "",
 			"svdFile": "C:/Development Tools/SVDs/STM32F103.svd"
 		}
 	]

@@ -32,6 +32,9 @@ SIZE = 0
 # LAST LINE OF DEFENCE IN CASE OF ROM SHORTAGE
 FLTO = 0
 
+# USE -g3 FLAG IN NON RELEASE BUILD
+USE_G3 = 0
+
 # USE G++ INSTEAD OF GCC
 GPP = 0
 
@@ -140,7 +143,12 @@ OPT += -Ofast
 endif
 
 ifeq ($(RELEASE), 0)
-CFLAGS += -g3 -gdwarf-2
+ifeq ($(USE_G3), 1)
+CFLAGS += -g3
+else
+CFLAGS += -g
+endif
+CFLAGS += -gdwarf-2
 else ifeq ($(FLTO), 1)
 CFLAGS += -flto
 ASFLAGS += -flto
@@ -219,7 +227,7 @@ OBJECTS = $(addprefix $(BUILD_DIR)/,$(notdir $(C_SOURCES:.c=.o)))
 vpath %.c $(sort $(dir $(C_SOURCES)))
 
 # LIST OF C++ OBJECTS
-OBJECTS += $(addprefix $(BUILD_DIR)/,$(notdir $(CPP_SOURCES:.cpp=.o)))
+OBJECTS_CPP = $(addprefix $(BUILD_DIR)/,$(notdir $(CPP_SOURCES:.cpp=.o)))
 vpath %.cpp $(sort $(dir $(CPP_SOURCES)))
 
 # LIST OF ASM OBJECTS
@@ -235,8 +243,8 @@ $(BUILD_DIR)/%.o: %.cpp $(MAKEFILE) | $(BUILD_DIR)
 $(BUILD_DIR)/%.o: %.s $(MAKEFILE) | $(BUILD_DIR)
 	$(AS) -c $(CFLAGS) $< -o $@
 
-$(BUILD_DIR)/$(TARGET).elf: $(OBJECTS) $(MAKEFILE)
-	$(CC) $(OBJECTS) $(LDFLAGS) -o $@
+$(BUILD_DIR)/$(TARGET).elf: $(OBJECTS) $(OBJECTS_CPP) Makefile
+	$(CC) $(OBJECTS) $(OBJECTS_CPP) $(LDFLAGS) -o $@
 
 $(BUILD_DIR)/%.hex: $(BUILD_DIR)/%.elf | $(BUILD_DIR)
 	$(HEX) $< $@
